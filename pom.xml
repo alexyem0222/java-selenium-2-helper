@@ -1,16 +1,49 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>selenium2-utils</groupId>
-	<artifactId>selenium2-utils</artifactId>
-	<version>1.0.0</version>
+	
+	<!-- The Basics -->
+	<groupId>de.twaldigas</groupId>
+	<artifactId>selenium-2-helper</artifactId>
+	
+	<version>2.42.2</version>
+	<packaging>jar</packaging>
 	
 	<dependencies>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>2.35.0</version>
+			<version>2.42.2</version>
 		</dependency>
 	</dependencies>
+	
+	<!-- Build Settings -->
+	<build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+	
+	<!-- More Project Information -->
+	<name>selenium-2-helper</name>
+	<url>https://github.com/Twaldigas/java-selenium-2-utils</url>
+	
+	<!-- Environment Settings -->
+	<scm>
+        <connection>scm:git:git://github.com/twaldigas/selenium-2-utils.git</connection>
+        <developerConnection>scm:git:git@twaldigas/selenium-2-utils.git</developerConnection>
+        <url>https://github.com/stefanbirkner/filter-tools/</url>
+    </scm>
 	
 </project>

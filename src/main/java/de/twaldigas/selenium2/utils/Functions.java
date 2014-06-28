@@ -24,7 +24,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * Contains functions especially for {@link WebDriver}.
+ * Helper Class especially for Selenium 2 / WebDriver.
  */
 public class Functions {
 
@@ -37,13 +37,7 @@ public class Functions {
 	private static final int ELEMENT_WAIT_TIMEOUT_IN_SECONDS = 10;
 	private static final int PAGE_WAIT_TIMEOUT_IN_SECONDS = 60;
 
-	/**
-	 * @param by - {@link WebElement} as {@link By} object.
-	 * @return true if element present; else false.
-	 */
-	protected boolean isElementPresent(final By by) {
-		return this.driver.findElements(by).size() > 0;
-	}
+	// Is Element Present
 
 	/**
 	 * @param element - {@link WebElement}.
@@ -62,11 +56,13 @@ public class Functions {
 
 	/**
 	 * @param by - {@link WebElement} as {@link By} object.
-	 * @return true if element visible; else false.
+	 * @return true if element present; else false.
 	 */
-	protected boolean isElementVisible(final By by) {
-		return this.driver.findElement(by).isDisplayed();
+	protected boolean isElementPresent(final By by) {
+		return this.driver.findElements(by).size() > 0;
 	}
+
+	// Is Element Visible
 
 	/**
 	 * @param element - {@link WebElement}.
@@ -78,12 +74,13 @@ public class Functions {
 
 	/**
 	 * @param by - {@link WebElement} as {@link By} object.
-	 * @return true if any text present; else false.
+	 * @return true if element visible; else false.
 	 */
-	protected boolean isAnyTextPresent(final By by) {
-		final String text = this.driver.findElement(by).getText();
-		return StringUtils.isNotBlank(text);
+	protected boolean isElementVisible(final By by) {
+		return this.driver.findElement(by).isDisplayed();
 	}
+
+	// Is Any Text Present
 
 	/**
 	 * @param element - {@link WebElement}.
@@ -93,6 +90,16 @@ public class Functions {
 		final String text = element.getText();
 		return StringUtils.isNotBlank(text);
 	}
+
+	/**
+	 * @param by - {@link WebElement} as {@link By} object.
+	 * @return true if any text present; else false.
+	 */
+	protected boolean isAnyTextPresent(final By by) {
+		return isAnyTextPresent(this.driver.findElement(by));
+	}
+
+	// Wait For Element
 
 	/**
 	 * Wait for {@link WebElement} is present. 5 seconds, tops.
@@ -134,6 +141,8 @@ public class Functions {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(by));
 	}
 
+	// Wait For Element Is Invisible
+
 	/**
 	 * Wait for {@link WebElement} is invisible. 5 seconds, tops.
 	 * 
@@ -145,6 +154,8 @@ public class Functions {
 	}
 
 	// Don't create a new method waitForElementIsInvisible for WebElement. It dosn't work.
+
+	// Wait For Page Load
 
 	/**
 	 * Wait for page load. 60 seconds, tops.
@@ -161,6 +172,8 @@ public class Functions {
 	public void waitForPageLoad(final int timeoutInSeconds) {
 		waitForElement(By.tagName("html"), timeoutInSeconds);
 	}
+
+	// XPath Finder
 
 	/**
 	 * Search specified XPaths. Start with first value in array.
@@ -180,16 +193,7 @@ public class Functions {
 
 	}
 
-	/**
-	 * Hover over {@link WebElement}.
-	 * 
-	 * @param by - {@link WebElement} as {@link By} object.
-	 */
-	protected void mouseover(final By by) {
-		final WebElement ele = this.driver.findElement(by);
-		final Actions builder = new Actions(this.driver);
-		builder.moveToElement(ele).build().perform();
-	}
+	// Mouseover
 
 	/**
 	 * Hover over {@link WebElement}.
@@ -202,18 +206,15 @@ public class Functions {
 	}
 
 	/**
-	 * Drag and drop from a specified {@link WebElement} to coordinates.
+	 * Hover over {@link WebElement}.
 	 * 
 	 * @param by - {@link WebElement} as {@link By} object.
-	 * @param xOffset - How many pixel move element left or right. A negative value is left.
-	 * @param yOffset - How many pixel move element up or down. A negative value is up.
 	 */
-	protected void dragAndDrop(final By by, final int xOffset, final int yOffset) {
-		final WebElement ele = this.driver.findElement(by);
-		final Actions builder = new Actions(this.driver);
-		final Action dragAndDrop = builder.clickAndHold(ele).moveByOffset(xOffset, yOffset).release().build();
-		dragAndDrop.perform();
+	protected void mouseover(final By by) {
+		mouseover(this.driver.findElement(by));
 	}
+
+	// Drag And Drop
 
 	/**
 	 * Drag and drop from a specified {@link WebElement} to coordinates.
@@ -227,6 +228,19 @@ public class Functions {
 		final Action dragAndDrop = builder.clickAndHold(element).moveByOffset(xOffset, yOffset).release().build();
 		dragAndDrop.perform();
 	}
+
+	/**
+	 * Drag and drop from a specified {@link WebElement} to coordinates.
+	 * 
+	 * @param by - {@link WebElement} as {@link By} object.
+	 * @param xOffset - How many pixel move element left or right. A negative value is left.
+	 * @param yOffset - How many pixel move element up or down. A negative value is up.
+	 */
+	protected void dragAndDrop(final By by, final int xOffset, final int yOffset) {
+		dragAndDrop(this.driver.findElement(by), xOffset, yOffset);
+	}
+
+	// Switch Window
 
 	/**
 	 * Switch to a open window.
@@ -257,13 +271,7 @@ public class Functions {
 		}
 	}
 
-	/**
-	 * @param by - {@link WebElement} as {@link By}.
-	 * @return If element read only true; else false.
-	 */
-	protected boolean isReadonly(final By by) {
-		return Boolean.valueOf(this.driver.findElement(by).getAttribute("readonly")).booleanValue();
-	}
+	// Is Readonly
 
 	/**
 	 * @param element - {@link WebElement}.
@@ -272,6 +280,16 @@ public class Functions {
 	protected boolean isReadonly(final WebElement element) {
 		return Boolean.valueOf(element.getAttribute("readonly")).booleanValue();
 	}
+
+	/**
+	 * @param by - {@link WebElement} as {@link By}.
+	 * @return If element read only true; else false.
+	 */
+	protected boolean isReadonly(final By by) {
+		return isReadonly(this.driver.findElement(by));
+	}
+
+	// Get Element Position
 
 	/**
 	 * @param element - {@link WebElement}.
@@ -299,12 +317,14 @@ public class Functions {
 		return pos.getY();
 	}
 
+	// Backspace Input Clear
+
 	/**
-	 * Clear input with back space key.
+	 * Clear input with backspace key.
 	 * 
 	 * @param element - {@link WebElement}.
 	 */
-	protected void backSpaceInputClear(final WebElement element) {
+	protected void backspaceInputClear(final WebElement element) {
 		final int numberOfCharacters = element.getAttribute("value").length();
 		for (int i = 0; i <= numberOfCharacters; i++) {
 			element.sendKeys(Keys.BACK_SPACE);
@@ -312,16 +332,18 @@ public class Functions {
 	}
 
 	/**
-	 * Clear input with back space key.
+	 * Clear input with backspace key.
 	 * 
 	 * @param element - {@link WebElement}.
 	 * @param numberOfCharacters - How many characters will delete.
 	 */
-	protected void backSpaceInputClear(final WebElement element, final int numberOfCharacters) {
+	protected void backspaceInputClear(final WebElement element, final int numberOfCharacters) {
 		for (int i = 0; i <= numberOfCharacters; i++) {
 			element.sendKeys(Keys.BACK_SPACE);
 		}
 	}
+
+	// Scroll
 
 	/**
 	 * Scroll in current window.
@@ -338,6 +360,8 @@ public class Functions {
 			js.executeScript("scroll(0," + j + ")");
 		}
 	}
+
+	// Highlight WebElement
 
 	/**
 	 * Highlight a {@link WebElement}.
@@ -363,6 +387,8 @@ public class Functions {
 		js.executeScript("arguments[0].setAttribute('style', '" + originalStyle + "');", element);
 	}
 
+	// Zoom
+
 	/**
 	 * Zoom current window +1.
 	 */
@@ -383,6 +409,8 @@ public class Functions {
 		actions.keyUp(Keys.CONTROL).perform();
 	}
 
+	// Take A Screenshot
+
 	/**
 	 * Take a screenshot.
 	 * 
@@ -396,6 +424,8 @@ public class Functions {
 			throw new RuntimeException(e);
 		}
 	}
+
+	// Alert
 
 	/**
 	 * @return true if alert present; else false.
