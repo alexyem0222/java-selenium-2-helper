@@ -1,4 +1,4 @@
-package de.twaldigas.selenium2.utils;
+package de.twaldigas.selenium2;
 
 import java.io.File;
 import java.io.IOException;
