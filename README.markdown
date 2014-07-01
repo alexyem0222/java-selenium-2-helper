@@ -3,12 +3,10 @@ Selenium 2 Helper
 
 This small Java project contains some useful methods for Selenium 2 / WebDriver. I created this Helper Class while my three years work with this nice open source testing framework.
 
-Public and Protected
+Usage
 --------------------
 
-Protected methods are only for PageObjects. Your PageObject classes extends from Functions.java and can use the methods, but not in tests.
-
-Public methods are for PageObjects and tests. In tests you can use the methods about the PageObject class you use.
+Your PageObject classes extends from the SeleniumHelper class. Protected methods may be used in PageObjects; public methods in PageObjects and test methods by the PageObject object.
 
 License
 -------
